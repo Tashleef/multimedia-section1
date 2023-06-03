@@ -17,8 +17,7 @@
    </top>
    <center>
       <Button fx:id="chooseImageButton" alignment="TOP_CENTER" contentDisplay="TOP" mnemonicParsing="false" onAction="#upload" prefHeight="31.0" prefWidth="184.0" style="-fx-background-color: #FFC857;" text="Choose Image" BorderPane.alignment="CENTER">
-      <Label fx:id="resultLabel" />
-         <opaqueInsets>
+        <opaqueInsets>
             <Insets />
          </opaqueInsets>
       </Button>
