@@ -16,8 +16,9 @@
       </TextFlow>
    </top>
    <center>
-      <Button fx:id="chooseImageButton" alignment="TOP_CENTER" contentDisplay="TOP" mnemonicParsing="false" onAction="#upload" prefHeight="31.0" prefWidth="184.0" style="-fx-background-color: #FFC857;" text="Choose Image" BorderPane.alignment="CENTER">
-        <opaqueInsets>
+      <Button fx:id="chooseImageButton" alignment="TOP_CENTER" contentDisplay="TOP" mnemonicParsing="false" onAction="#upload" prefHeight="31.0" prefWidth="184.0" style="-fx-background-color: #FFC857;" text="StartAlgorithm" BorderPane.alignment="CENTER">
+      
+         <opaqueInsets>
             <Insets />
          </opaqueInsets>
       </Button>
@@ -25,7 +26,12 @@
    <bottom>
       <HBox alignment="CENTER" prefHeight="100.0" prefWidth="50.0" BorderPane.alignment="CENTER">
          <children>
-            <Button alignment="BOTTOM_CENTER" contentDisplay="BOTTOM" mnemonicParsing="false" style="-fx-background-color: #084C61;" text="Start Algorithm" textAlignment="CENTER" />
+            <Button fx:id="selectColors" mnemonicParsing="false" onAction="#useColors" style="-fx-background-color: #084C61;" text="Select colors">
+               <HBox.margin>
+                  <Insets right="20.0" />
+               </HBox.margin>
+            </Button>
+            <Button fx:id="searchImage" alignment="BOTTOM_CENTER" contentDisplay="BOTTOM" mnemonicParsing="false" onAction="#search" style="-fx-background-color: #084C61;" text="Search image" textAlignment="CENTER" />
          </children>
       </HBox>
    </bottom>

@@ -1,4 +1,4 @@
-package colorPlate;
+package colors;
 import javafx.scene.image.Image;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
