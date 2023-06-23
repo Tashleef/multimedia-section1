@@ -6,14 +6,22 @@ import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
+import threads.Threads;
 
+import java.io.Console;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 import PageSwitcher.PageSwitcher;
 import interfaces.Page;
@@ -38,7 +46,7 @@ public class ColorSelector implements Page{
         Button selectColorButton = new Button("Select Color");
         selectColorButton.setOnAction(e -> showColorPicker());
         
-          selectFolderButton = new Button("Select Folder");
+        selectFolderButton = new Button("Select Folder");
         selectFolderButton.setOnAction(e -> selectFolder());
         
         layout = new VBox(10);
@@ -50,12 +58,43 @@ public class ColorSelector implements Page{
 
     private void selectFolder() {
         DirectoryChooser directoryChooser = new DirectoryChooser();
-        File selectedDirectory = directoryChooser.showDialog(layout.getScene().getWindow());
-        if (selectedDirectory != null && getSelectedColors().size() != 0) {
-            DisplayColorImageFinder displayColorImageFinder = new DisplayColorImageFinder(selectedColors, selectedDirectory.getAbsolutePath().toString());
-            pageSwitcher.switchToPage(displayColorImageFinder);
-            
+        File selectedFolder = directoryChooser.showDialog(layout.getScene().getWindow());
+        List<Callable<List<Image>>> tasks = new ArrayList<>();
+         if (selectedFolder != null) {
+             File[] files = selectedFolder.listFiles();
+            for (File folder : files) {
+                if(folder.isFile()) continue;
+                String folderPath = folder.getAbsolutePath();
+                Callable<List<Image>> task = new Threads(folderPath, getSelectedColors());
+                tasks.add(task);
+            }
+        ExecutorService executorService = Executors.newFixedThreadPool(tasks.size());
+        List<Future<List<Image>>> futures;
+        try {
+            futures = executorService.invokeAll(tasks);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+            return;
         }
+
+        executorService.shutdown();
+        System.out.println("HERERE");
+        List<Image> results = new ArrayList<>();
+
+        for (Future<List<Image>> future : futures) {
+            try {
+                List<Image> result = future.get();
+                System.out.println(result.size());
+                results.addAll(result);
+            } catch (InterruptedException | ExecutionException e) {
+                System.out.println("Here");
+                e.printStackTrace();
+            }
+            System.out.println(results.size());
+            pageSwitcher.switchToPage(new DisplayColorImageFinder(results));
+        }
+        }
+
     }
     private void showColorPicker() {
         ColorPicker colorPicker = new ColorPicker();

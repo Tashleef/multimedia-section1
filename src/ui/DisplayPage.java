@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import EditedClasses.Image;
 import algorithms.KMeanAlgorithm;
 import algorithms.MedianCut;
+import algorithms.Simple;
 import colors.ColorPlateGenerator;
 import indexedImage.ImageToIndexedConverter;
 import interfaces.Algorithm;
@@ -37,9 +38,11 @@ public class DisplayPage implements Page {
         Algorithm[] algorithm = new Algorithm[algorithmsNumber];
         algorithm[0] = new KMeanAlgorithm();
         algorithm[1] = new MedianCut();
+        algorithm[2] = new Simple();
         int[] k = new int[algorithmsNumber];
         k[0] = 10;
         k[1] = 256;
+        k[2] = 256;
         for(int i = 0; i < algorithmsNumber; i++) {
             Image image = new Image(imageUrl);
             image.setImage(algorithm[i].startAlgorithm(image.getImage(), k[i]));

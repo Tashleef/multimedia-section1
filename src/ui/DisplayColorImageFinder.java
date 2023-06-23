@@ -21,8 +21,8 @@ class DisplayColorImageFinder implements Page{
      Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
     double fitWidth = screenBounds.getWidth();
     double fitHeight = screenBounds.getHeight();
-    public DisplayColorImageFinder(List<Color> targetColors, String folderPath) {
-        this.images = ColorImageSearcher.searchImagesByColors(targetColors, folderPath);
+    public DisplayColorImageFinder(List<Image> images) {
+        this.images = images;
         fitWidth /= Math.max(1, images.size());
         fitHeight /= Math.max(1, images.size());
     }

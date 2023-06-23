@@ -12,11 +12,11 @@ public class Simple implements Algorithm {
     }
 
     public Image simple(Image image) {
-        int Mask0 = 0x00800000;
-        int Mask1 = 0xff808080;
-        int Mask2 = 0xffc0c0c0;
-        int Mask3 = 0xffe0e0e0;
-        int Mask4 = 0xfff0f0f0;
+        int Mask3 = 0x00800000;
+        // int Mask3 = 0xff808080;
+        // int Mask3 = 0xffc0c0c0;
+        // int Mask3 = 0xffe0e0e0;
+        // int Mask3 = 0xfff0f0f0;
         BufferedImage originalImage = SwingFXUtils.fromFXImage(image , null);
         int w = originalImage.getWidth();
         int h = originalImage.getHeight();
