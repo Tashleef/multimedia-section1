@@ -63,9 +63,14 @@ public class SimilarImagesFinder {
     private static double calculateSimilarity(BufferedImage image1, BufferedImage image2) {
         // Implement your own similarity calculation logic here
         // This example uses a simple pixel-by-pixel comparison
+        
+        int width1 = image1.getWidth();
+        int height1 = image1.getHeight();
 
-        int width = image1.getWidth();
-        int height = image1.getHeight();
+        int width2 = image2.getWidth();
+        int height2 = image2.getHeight();
+        int width = Math.min(width2, width1);
+        int height = Math.min(height2, height1);
         int numPixels = width * height;
 
         int numSimilarPixels = 0;
